@@ -4,6 +4,7 @@
 
 use ::geom::size::{Size2D, TypedSize2D};
 use ::util::geometry::{Au, ViewportPx};
+use ::util::opts;
 
 use super::DeviceFeatureContext;
 use super::MediaType;
@@ -78,7 +79,21 @@ impl DeviceFeatureContext for Device {
     }
 
     fn ViewingDistance(&self) -> Option<ViewingDistance> {
-        Some(ViewingDistance::Far)
+
+        let mq_distance = opts::get().mq_distance.clone();
+        if mq_distance == None {
+            return Some(ViewingDistance::Far);
+        }
+
+        let mq_distance = mq_distance.unwrap();
+
+        if mq_distance == String::from_str("near") {
+            return Some(ViewingDistance::Near)
+        } else if mq_distance == String::from_str("mid") {
+            Some(ViewingDistance::Mid)
+        } else {
+            return Some(ViewingDistance::Far)
+        }
     }
 
     // TODO

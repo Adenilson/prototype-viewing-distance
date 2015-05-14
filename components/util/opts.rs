@@ -109,6 +109,9 @@ pub struct Opts {
     /// An optional string allowing the user agent to be set for testing.
     pub user_agent: Option<String>,
 
+    /// An optional string setting the viewing-distance Media Query property value.
+    pub mq_distance: Option<String>,
+
     /// Dumps the flow tree after a layout.
     pub dump_flow_tree: bool,
 
@@ -193,6 +196,7 @@ pub fn default_opts() -> Opts {
         devtools_port: None,
         initial_window_size: TypedSize2D(800, 600),
         user_agent: None,
+        mq_distance: None,
         dump_flow_tree: false,
         dump_display_list: false,
         relayout_event: false,
@@ -225,6 +229,7 @@ pub fn from_cmdline_args(args: &[String]) -> bool {
         getopts::optflagopt("", "devtools", "Start remote devtools server on port", "6000"),
         getopts::optopt("", "resolution", "Set window resolution.", "800x600"),
         getopts::optopt("u", "user-agent", "Set custom user agent string", "NCSA Mosaic/1.0 (X11;SunOS 4.1.4 sun4m)"),
+        getopts::optopt("q", "media-query", "Set viewing-distance MQ property", "Far"),
         getopts::optopt("Z", "debug", "A comma-separated string of debug options. Pass help to show available options.", ""),
         getopts::optflag("h", "help", "Print this message"),
         getopts::optopt("r", "render-api", "Set the rendering API to use", "gl|mesa"),
@@ -340,6 +345,7 @@ pub fn from_cmdline_args(args: &[String]) -> bool {
         devtools_port: devtools_port,
         initial_window_size: initial_window_size,
         user_agent: opt_match.opt_str("u"),
+        mq_distance: opt_match.opt_str("q"),
         show_debug_borders: debug_options.contains(&"show-compositor-borders"),
         show_debug_fragment_borders: debug_options.contains(&"show-fragment-borders"),
         show_debug_parallel_paint: debug_options.contains(&"show-parallel-paint"),
