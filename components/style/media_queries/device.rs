@@ -9,6 +9,7 @@ use super::DeviceFeatureContext;
 use super::MediaType;
 
 use super::feature::Orientation;
+use super::feature::ViewingDistance;
 use super::feature::{Scan, UpdateFrequency, OverflowBlock, OverflowInline};
 use super::feature::InvertedColors;
 use super::feature::{Pointer, Hover, AnyPointer, AnyHover};
@@ -74,6 +75,10 @@ impl DeviceFeatureContext for Device {
         } else {
             None
         }
+    }
+
+    fn ViewingDistance(&self) -> Option<ViewingDistance> {
+        Some(ViewingDistance::Far)
     }
 
     // TODO

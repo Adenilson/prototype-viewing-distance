@@ -69,6 +69,18 @@ media_features! {
                     since: SpecificationLevel::MEDIAQ3
                 }),
 
+    // XXX: proposed extension.
+    ViewingDistance(name: "viewing-distance",
+                value: {
+                    "near" => Near,
+                    "mid" => Mid,
+                    "far" => Far
+                },
+                type: discrete,
+                availability: {
+                    since: SpecificationLevel::MEDIAQ3
+                }),
+
     // MQ 4 § 5. Display Quality
     // MQ 4 § 5.1
     //Resolution(name: "resolution",
